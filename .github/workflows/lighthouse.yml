@@ -1,0 +1,21 @@
+name: Lighthouse Check
+on: 
+  pull_request:
+     types: [opened]
+
+jobs:
+ lighthouse-check:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@master
+    - run: mkdir /tmp/artifacts
+    - name: Run Lighthouse
+      uses: foo-software/lighthouse-check-action@master
+      with:
+         outputDirectory: /tmp/artifacts
+         urls: 'https://www.google.com'
+    - name: Upload artifacts
+      uses: actions/upload-artifact@master
+      with:
+        name: Lighthouse Reports
+        path: /tmp/artifacts 
